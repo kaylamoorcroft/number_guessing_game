@@ -54,3 +54,6 @@ then
 fi
 
 GUESS
+
+# add game to database
+$PSQL "INSERT INTO games(username, guesses) VALUES('$USERNAME', $NUMBER_OF_GUESSES)"
