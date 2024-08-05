@@ -13,6 +13,12 @@ GUESS() {
   fi
   # get guess
   read GUESS_NUMBER
+
+  # if not a number
+  if [[ ! $GUESS_NUMBER =~ ^[0-9]+$ ]]
+  then
+    GUESS "That is not an integer, guess again:"
+  fi
 }
 
 echo "Enter your username:"
