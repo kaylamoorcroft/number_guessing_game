@@ -35,7 +35,12 @@ GUESS() {
   # correct guess
   else
     (( NUMBER_OF_GUESSES++ ))
-    echo -e "\nYou guessed it in $NUMBER_OF_GUESSES tries. The secret number was $SECRET_NUMBER. Nice job!"
+
+    # add game to database
+    $PSQL "INSERT INTO games(username, guesses) VALUES('$USERNAME', $NUMBER_OF_GUESSES)"
+
+    # final message
+    echo -e "You guessed it in $NUMBER_OF_GUESSES tries. The secret number was $SECRET_NUMBER. Nice job!"
   fi
 }
 
@@ -62,6 +67,3 @@ else
 fi
 
 GUESS
-
-# add game to database
-$PSQL "INSERT INTO games(username, guesses) VALUES('$USERNAME', $NUMBER_OF_GUESSES)"
