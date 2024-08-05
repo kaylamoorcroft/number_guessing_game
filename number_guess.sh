@@ -2,6 +2,7 @@
 PSQL="psql --username=freecodecamp --dbname=number_guess -t -q --no-align -c"
 
 SECRET_NUMBER=$(( RANDOM % 1000 + 1 ))
+NUMBER_OF_GUESSES=0
 
 GUESS() {
   # print message
@@ -18,6 +19,23 @@ GUESS() {
   if [[ ! $GUESS_NUMBER =~ ^[0-9]+$ ]]
   then
     GUESS "That is not an integer, guess again:"
+  
+  # if guess is too high
+  elif [[ $GUESS_NUMBER -gt $SECRET_NUMBER ]]
+  then
+    (( NUMBER_OF_GUESSES++ ))
+    GUESS "It's lower than that, guess again:"
+
+  # if guess is too low
+  elif [[ $GUESS_NUMBER -lt $SECRET_NUMBER ]]
+  then
+    (( NUMBER_OF_GUESSES++ ))
+    GUESS "It's higher than that, guess again:"
+  
+  # correct guess
+  else
+    (( NUMBER_OF_GUESSES++ ))
+    echo -e "\nYou guessed it in $NUMBER_OF_GUESSES tries. The secret number was $SECRET_NUMBER. Nice job!"
   fi
 }
 
