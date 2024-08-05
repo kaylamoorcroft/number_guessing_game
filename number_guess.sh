@@ -51,6 +51,14 @@ then
   echo "Welcome, $USERNAME! It looks like this is your first time here."
   # add username to database
   $PSQL "INSERT INTO users(username) VALUES('$USERNAME')"
+else
+  # get user stats
+  USER_STATS=$($PSQL "SELECT COUNT(*), MIN(guesses) FROM games WHERE username = '$USERNAME' GROUP BY username;")
+  echo $USER_STATS | while IFS="|" read GAMES_PLAYED BEST_GAME
+  do 
+    # print welcome back message
+    echo "Welcome back, $USERNAME! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
+  done
 fi
 
 GUESS
