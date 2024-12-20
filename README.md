@@ -4,3 +4,4 @@ This project uses Bash scripting, PostgreSQL, and Git to create a number guessin
 
 To use: run `number_guess.sh` in a bash terminal
 
+![demo photo](number-guessing-game-cover.png)
